@@ -1,12 +1,3 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 list.of.packages <- c("D3partitionR", "jsonlite")
 new.packages <- list.of.packages[!(list.of.packages %in% installed.packages()[,"Package"])]
 if(length(new.packages)) install.packages(new.packages)
@@ -28,7 +19,7 @@ ui <- navbarPage("MozillaViz",
                  inverse = T
 )
 
-# Define server logic required to draw a histogram
+
 server <- function(input, output, session) {
   
   getPage<-function() {
@@ -82,8 +73,7 @@ server <- function(input, output, session) {
 }
 
 addResourcePath('www', '.')
-addResourcePath('static', '.')
+addResourcePath('map', '.')
 
-# Run the application 
 shinyApp(ui = ui, server = server)
 
