@@ -13,7 +13,7 @@ The file `main_cities_size.json` contains monthly aggregated data for select cit
 
 Using D3.js (which we put back into Shiny in order to include it with the other visualizations), we use the above data to create pie charts with Firefox version distributions for each city and place them correspondingly on an interactive map. The size of the pie charts shows the "importance" of each city by number of monthly users. In addition, the user can hover on a pie chart to easily get quantified information about the selected city.
 
-![Firefox versions distribution](map.png)
+![Firefox versions distribution](map.gif)
 
 ### Firefox Operating Systems hierarchical distribution
 
@@ -21,9 +21,7 @@ The file `os2.json` contains monthly aggregated data for select cities in Europe
 
 Using a D3.js library in R (D3PartitionR), we are able to create several hierarchical plots to visualize this data: a circle tree map, a sunburst map, a partition chart, a tree map, and a collapsible tree. The user can hover and/or click through the data and explore the sub-partitions of the data within each country, city, and OS.
 
-![circle tree map](circleTreeMap.png)
-![partition chart](partitionChart.png)
-![collapsible tree](collapsibleTree.png)
+![Firefox operating systems charts](charts.gif)
 
 ## Discussion
 
