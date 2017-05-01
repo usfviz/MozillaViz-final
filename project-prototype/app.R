@@ -11,7 +11,7 @@ ui <- navbarPage("MozillaViz",
                             tabPanel("Tree Map", D3partitionROutput("treeMap", width = 800)),
                             tabPanel("Collapsible Tree", D3partitionROutput("collapsibleTree", width = 800))
                  ),
-                 footer = "Built by Connor Ameres, Andre Duarte",
+                 footer = " Built by Connor Ameres, Andre Duarte",
                  inverse = T
 )
 
@@ -23,7 +23,7 @@ server <- function(input, output, session) {
                        style = "width:100%;",
                        frameborder = "0",
                        id = "iframe",
-                       height = "600px"))
+                       height = "800px"))
   }
   
   output$inc <- renderUI({
