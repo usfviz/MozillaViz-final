@@ -12,26 +12,26 @@ library(D3partitionR)
 library(jsonlite)
 
 # Define UI for application that draws a histogram
-ui <- fluidPage(
-  
-  navbarPage("MozillaViz",
-             tabPanel("Firefox Versions Map", includeHTML("index.html")),
-             navbarMenu("Firefox OS Maps",
-                        tabPanel("Circle Tree Map", D3partitionROutput("circleTreeMap", width = "100%")),
-                        tabPanel("Sunburst", D3partitionROutput("sunburst", width = "100%")),
-                        tabPanel("Partition Chart", D3partitionROutput("partitionChart", width = "100%")),
-                        tabPanel("Tree Map", D3partitionROutput("treeMap", width = "100%")),
-                        tabPanel("Collapsible Tree", D3partitionROutput("collapsibleTree", width = "100%"))
-             ),
-             footer = "Built by Connor Ameres, Andre Duarte",
-             inverse = T
-  )
-  
-)
+ui <- navbarPage("MozillaViz",
+                 tabPanel("Firefox Versions Map", htmlOutput("map", inline = T)),
+                 navbarMenu("Firefox OS Maps",
+                            tabPanel("Circle Tree Map", D3partitionROutput("circleTreeMap", width = 800)),
+                            tabPanel("Sunburst", D3partitionROutput("sunburst", width = 800)),
+                            tabPanel("Partition Chart", D3partitionROutput("partitionChart", width = 800)),
+                            tabPanel("Tree Map", D3partitionROutput("treeMap", width = 800)),
+                            tabPanel("Collapsible Tree", D3partitionROutput("collapsibleTree", width = 800))
+                 ),
+                 footer = "Built by Connor Ameres, Andre Duarte",
+                 inverse = T
+                 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
-   
+  
+  output$map <- renderUI({
+    includeHTML("index.html")
+  })
+  
   os2 <- fromJSON("os2.json", simplifyDataFrame = T)
   os2 <- subset(os2, sd == "2016-09")
   os2$path_str <- paste(paste("World", os2$country, os2$city, os2$os, os2$os_version, sep = "/"))
@@ -70,7 +70,7 @@ server <- function(input, output, session) {
   })
 }
 
-addResourcePath('static', '.')
+#addResourcePath('static', '.')
 
 # Run the application 
 shinyApp(ui = ui, server = server)
