@@ -120,7 +120,7 @@ var map = initMap();
 // access the D3 layer
 var g = d3.select('#map').select('svg').append('g');
 
-d3.json('main_cities_sized.json', function(error, data){
+d3.json('map/main_cities_sized.json', function(error, data){
   dataGlobal = data;
 
   // nest/zip the data for pie charts
