@@ -3,17 +3,32 @@ library(D3partitionR)
 library(jsonlite)
 
 ui <- navbarPage("MozillaViz",
-                 tabPanel("Circle Tree Map", D3partitionROutput("circleTreeMap", width = 800)),
-                 tabPanel("Sunburst", D3partitionROutput("sunburst", width = 800)),
-                 tabPanel("Partition Chart", D3partitionROutput("partitionChart", width = 800)),
-                 tabPanel("Tree Map", D3partitionROutput("treeMap", width = 800)),
-                 tabPanel("Collapsible Tree", D3partitionROutput("collapsibleTree", width = 800)),
+                 tabPanel("Firefox Versions Map", htmlOutput("inc")),
+                 navbarMenu("Firefox OS Charts",
+                            tabPanel("Circle Tree Map", D3partitionROutput("circleTreeMap", width = 800)),
+                            tabPanel("Sunburst", D3partitionROutput("sunburst", width = 800)),
+                            tabPanel("Partition Chart", D3partitionROutput("partitionChart", width = 800)),
+                            tabPanel("Tree Map", D3partitionROutput("treeMap", width = 800)),
+                            tabPanel("Collapsible Tree", D3partitionROutput("collapsibleTree", width = 800))
+                 ),
                  footer = "Built by Connor Ameres, Andre Duarte",
                  inverse = T
 )
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
+  
+  getPage<-function() {
+    return(tags$iframe(src = "index.html",
+                       style = "width:100%;",
+                       frameborder = "0",
+                       id = "iframe",
+                       height = "600px"))
+  }
+  
+  output$inc <- renderUI({
+    getPage()
+  })
   
   os2 <- fromJSON("os2.json", simplifyDataFrame = T)
   os2 <- subset(os2, sd == "2016-09")
@@ -52,6 +67,9 @@ server <- function(input, output, session) {
                  specificOptions = list(bar=T))
   })
 }
+
+addResourcePath('www', '.')
+addResourcePath('static', '.')
 
 # Run the application 
 shinyApp(ui = ui, server = server)
