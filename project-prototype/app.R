@@ -1,36 +1,19 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 library(shiny)
 library(D3partitionR)
 library(jsonlite)
 
-# Define UI for application that draws a histogram
 ui <- navbarPage("MozillaViz",
-                 tabPanel("Firefox Versions Map", htmlOutput("map", inline = T)),
-                 navbarMenu("Firefox OS Maps",
-                            tabPanel("Circle Tree Map", D3partitionROutput("circleTreeMap", width = 800)),
-                            tabPanel("Sunburst", D3partitionROutput("sunburst", width = 800)),
-                            tabPanel("Partition Chart", D3partitionROutput("partitionChart", width = 800)),
-                            tabPanel("Tree Map", D3partitionROutput("treeMap", width = 800)),
-                            tabPanel("Collapsible Tree", D3partitionROutput("collapsibleTree", width = 800))
-                 ),
+                 tabPanel("Circle Tree Map", D3partitionROutput("circleTreeMap", width = 800)),
+                 tabPanel("Sunburst", D3partitionROutput("sunburst", width = 800)),
+                 tabPanel("Partition Chart", D3partitionROutput("partitionChart", width = 800)),
+                 tabPanel("Tree Map", D3partitionROutput("treeMap", width = 800)),
+                 tabPanel("Collapsible Tree", D3partitionROutput("collapsibleTree", width = 800)),
                  footer = "Built by Connor Ameres, Andre Duarte",
                  inverse = T
-                 )
+)
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
-  
-  output$map <- renderUI({
-    includeHTML("index.html")
-  })
   
   os2 <- fromJSON("os2.json", simplifyDataFrame = T)
   os2 <- subset(os2, sd == "2016-09")
@@ -69,8 +52,6 @@ server <- function(input, output, session) {
                  specificOptions = list(bar=T))
   })
 }
-
-#addResourcePath('static', '.')
 
 # Run the application 
 shinyApp(ui = ui, server = server)
