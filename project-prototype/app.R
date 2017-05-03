@@ -74,6 +74,7 @@ server <- function(input, output, session) {
 
 addResourcePath('www', '.')
 addResourcePath('map', '.')
+addResourcePath('static', '.')
 
 shinyApp(ui = ui, server = server)
 
