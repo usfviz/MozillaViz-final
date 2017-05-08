@@ -10,11 +10,21 @@ ui <- navbarPage("MozillaViz",
                  tabPanel("About", htmlOutput("about")),
                  tabPanel("Firefox Versions Map", htmlOutput("inc")),
                  navbarMenu("Firefox OS Charts",
-                            tabPanel("Circle Tree Map", D3partitionROutput("circleTreeMap", width = 800)),
-                            tabPanel("Sunburst", D3partitionROutput("sunburst", width = 800)),
-                            tabPanel("Partition Chart", D3partitionROutput("partitionChart", width = 800)),
-                            tabPanel("Tree Map", D3partitionROutput("treeMap", width = 800)),
-                            tabPanel("Collapsible Tree", D3partitionROutput("collapsibleTree", width = 800))
+                            tabPanel("Circle Tree Map",
+                                     mainPanel(D3partitionROutput("circleTreeMap")),
+                                     sidebarPanel(width = 3, htmlOutput("circleAbout")), width = 800),
+                            tabPanel("Sunburst",
+                                     mainPanel(D3partitionROutput("sunburst")),
+                                     sidebarPanel(width = 3, htmlOutput("sunburstAbout")), width = 800),
+                            tabPanel("Partition Chart",
+                                     mainPanel(D3partitionROutput("partitionChart")),
+                                     sidebarPanel(width = 3, htmlOutput("partitionAbout")), width = 800),
+                            tabPanel("Tree Map",
+                                     mainPanel(D3partitionROutput("treeMap")),
+                                     sidebarPanel(width = 3, htmlOutput("treeAbout")), width = 800),
+                            tabPanel("Collapsible Tree",
+                                     mainPanel(D3partitionROutput("collapsibleTree")),
+                                     sidebarPanel(width = 3, htmlOutput("collapsibleAbout")), width = 800)
                  ),
                  footer = " Built by Connor Ameres, Andre Duarte",
                  inverse = T
@@ -50,6 +60,69 @@ server <- function(input, output, session) {
       "<p>Another difficulty, on both parts of the project, was to integrate a time selector. ",
       "In both cases, this would cause the entire visualization to stop responding and had to be dropped. ",
       "However, the overall look of the project is very similar to what we had envisioned.</p>"
+    )
+  })
+  
+  about <- paste0(
+    "<p>Each set is partitioned by country, city, OS name, and OS version. ",
+    "Hovering over a sub-partition shows information about the current cell. ",
+    "In particular, the relative importance to the previous partition is shown (<em>From previous step</em>) as well as the total relative importance of the selected subpartition (<em>From the beginning</em>). ",
+    "</p>"
+  )
+  
+  output$circleAbout <- renderText({
+    paste0(
+      "<h2>Circle Tree Map</h2>",
+      about,
+      "<p>This map makes it easy to see every subdivision in a simple and intuitive manner. ",
+      "All the cells are hoverable and color-matched without needing to 'dive deeper' into the map. ",
+      "Finally, the user can click on any subpartition to 'zoom in' and see the information in a more contextualized way.",
+      "</p>"
+    )
+  })
+  
+  output$sunburstAbout <- renderText({
+    paste0(
+      "<h2>Subburst</h2>",
+      about,
+      "<p>This map shows all the partitions based on proportions. ",
+      "Each additional level's size is relative to the previous. ",
+      "Comparisons between levels are difficult, but those within levels are manageable.",
+      "</p>"
+    )
+  })
+  
+  output$partitionAbout <- renderText({
+    paste0(
+      "<h2>Partition Chart</h2>",
+      about,
+      "<p>This chart makes it very easy to see the importance of each subpartition relative to the whole. ",
+      "They are ordered by size (ie number of active profiles), so the user can quickly understand which country/city/OS/version has more users. ",
+      "The user can click on any subpartition to 'zoom in' and see the information in a more contextualized way.",
+      "</p>"
+    )
+  })
+  
+  output$treeAbout <- renderText({
+    paste0(
+      "<h2>Tree Map</h2>",
+      about,
+      "<p>This chart makes it very easy to see the importance of each subpartition relative to the whole. ",
+      "The cells are ordered by size (ie number of active profiles), so the user can quickly understand which country/city/OS/version has more users. ",
+      "The user can click on any subpartition to 'zoom in' and reveal more information about the selected partition. ",
+      "In addition to the size of the cells, the color gradient is another source of information that codes this data.",
+      "</p>"
+    )
+  })
+  
+  output$collapsibleAbout <- renderText({
+    paste0(
+      "<h2>Collapsible Tree Map</h2>",
+      about,
+      "<p>This map allows for a more selective and interactive display of the data. ",
+      "The user can click through the path that they are interested in, and only this information is shown. ",
+      "The size of the points depends on the number of users, but this information is not as clear as possible, since the points are small and far apart from each other.",
+      "</p>"
     )
   })
   
