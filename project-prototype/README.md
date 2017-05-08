@@ -1,7 +1,7 @@
 # MozillaViz
 By Connor Ameres (cameres@usfca.edu), Andre Duarte (aguimaraesduarte@usfca.edu)
 
-This app allows for a visualization of Firefox data in select cities in Europe.
+This app allows for a visualization of Firefox usage in cities in Europe.
 
 ## Description of the data set
 
@@ -9,9 +9,9 @@ The data was collected from Mozilla's internal tables, using a custom script in 
 
 ### Firefox version distribution on a map
 
-The file `main_cities_size.json` contains monthly aggregated data for select cities in Europe concerning the distribution of Firefox versions. For each city, we have the latitude and longitude to plot on the map, the relative proportion of users in that city versus everywhere else to define the size of the point on the map, and the relative proportions of Firefox versions within that city to build the pie charts.
+The file `main_cities_size.json` contains monthly aggregated, usage data for select cities in Europe. For each city, the relative proportion of users in that city versus everywhere else is used to define the radius of the pie charts on the map and the relative proportions of Firefox versions within that city is used to build the arc lengths for each version. In order to accomplish this task we used D3.js and integrated back into Shiny in order to include it with the other visualizations, because we could not find an R package that accomplished our vision for this visualization.
 
-Using D3.js (which we put back into Shiny in order to include it with the other visualizations), we use the above data to create pie charts with Firefox version distributions for each city and place them correspondingly on an interactive map. The size of the pie charts shows the "importance" of each city by number of monthly users. In addition, the user can hover on a pie chart to easily get quantified information about the selected city.
+The user can interact and explore the map visualization in the following ways. The size of the pie charts shows the "importance" of each city by number of monthly users. In addition, the user can hover on a pie chart to easily get quantified information about the selected city. The user can also zoom in and out of the visualization which would allow the addition of more cities in the future.
 
 ![Firefox versions distribution](img/map.gif)
 
@@ -25,6 +25,6 @@ Using a D3.js library in R (D3PartitionR), we are able to create several hierarc
 
 ## Discussion
 
-Since part of this project (the map) was built in D3, and the other (the hierarchical distribution) in Shiny (albeit using a D3 wrapper library), it has proven difficult to successfully integrate both into a single Shiny app that works as expected. One of the main issues we have right now is that only one of the visualizations will work if all are included. The trick for now is to comment out the map output in the `app.R` file before running, which is not a good fix.
+Since part of this project (the map) was built in D3, and the other (the hierarchical distribution) in Shiny (albeit using a D3 wrapper library), it has proven difficult to successfully integrate both into a single Shiny app that works as expected. We currently have a solution that works, but was painstaking to find. Ideally in the future the visualizations would be broken out into seperate applications.
 
 Another difficulty, on both parts of the project, was to integrate a time selector. In both cases, this would cause the entire visualization to stop responding and had to be dropped. However, the overall look of the project is very similar to what we had envisioned.
