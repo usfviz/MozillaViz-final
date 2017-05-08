@@ -26,7 +26,7 @@ ui <- navbarPage("MozillaViz",
                                      mainPanel(D3partitionROutput("collapsibleTree")),
                                      sidebarPanel(width = 3, htmlOutput("collapsibleAbout")), width = 800)
                  ),
-                 footer = " Built by Connor Ameres, Andre Duarte",
+                 footer = "Built by Connor Ameres, Andre Duarte",
                  inverse = T
 )
 
@@ -59,11 +59,13 @@ server <- function(input, output, session) {
       
       "<h2>Discussion</h2>",
       "<p>Since part of this project (the map) was built in D3, and the other (the hierarchical distribution) in Shiny (albeit using a D3 wrapper library), it has proven difficult to successfully integrate both into a single Shiny app that works as expected. ",
-      "One of the main issues we have right now is that only one of the visualizations will work if all are included. ",
-      "The trick for now is to comment out the map output in the app.R file before running, which is not a good fix.</p>",
+      "However, we were able to do this by embedding the html (that calls the javascript code) within an iframe directly in Shiny. ",
+      "It's not the most elegant solution (coding-wise), but looks and performs really well in the end.</p>",
       "<p>Another difficulty, on both parts of the project, was to integrate a time selector. ",
       "In both cases, this would cause the entire visualization to stop responding and had to be dropped. ",
-      "However, the overall look of the project is very similar to what we had envisioned.</p>"
+      "However, the overall look of the project is very similar to what we had envisioned.</p>",
+      "<p>Based on the prototype feedback, we added text descriptions for each plot as well as a landing page that explains the project a little bit. ",
+      "The descriptions for the maps/charts are very similar since they refer to the same data.</p>"
     )
   })
   
