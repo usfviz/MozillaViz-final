@@ -35,6 +35,10 @@ server <- function(input, output, session) {
   
   output$about <- renderText({
     paste0(
+      "<h1>Project objective</h1>",
+      "<p>This app allows for a visualization of Firefox usage in select cities in Europe. ",
+      "We wanted to get and show other data from Mozilla that we don't usually use in our practicum.</p>",
+      
       "<h1>Description of the data set</h1>",
       "<p>The data was collected from Mozilla's internal tables, using a custom script in Spark. ",
       "The data is anonymized and grouped so that there are no privacy issues of uniquely identifying profiles. ",
