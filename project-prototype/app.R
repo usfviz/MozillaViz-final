@@ -46,9 +46,9 @@ server <- function(input, output, session) {
       
       "<h2>Firefox version distribution on a map</h2>",
       "<p>The file <kbd>main_cities_size.json</kbd> contains monthly aggregated data for select cities in Europe concerning the distribution of Firefox versions. ",
-      "For each city, we have the latitude and longitude to plot on the map, the relative proportion of users in that city versus everywhere else to define the size of the point on the map, and the relative proportions of Firefox versions within that city to build the pie charts. ",
-      "Using <em>D3.js</em> (which we put back into Shiny in order to include it with the other visualizations), we use the above data to create pie charts with Firefox version distributions for each city and place them correspondingly on an interactive map. ",
-      "The size of the pie charts shows the 'importance' of each city by number of monthly users. ",
+      "For each city, we have the latitude and longitude to plot on the map, the relative proportion of users in that city versus everywhere else to define the radius of the charts on the map, and the relative proportions of Firefox versions within that city to build the slices of the pie charts. ",
+      "Using <em>D3.js</em> and <em>Leaflet</em> in a standalone HTML page (which we later embed into the Shiny application with IFrames), we use the above data to create pie charts with Firefox version distributions for each city and place them correspondingly on an interactive map. ",
+      "The radius of the pie charts shows the 'importance' of each city by number of monthly users. ",
       "In addition, the user can hover on a pie chart to easily get quantified information about the selected city.</p>",
       
       "<h2>Firefox Operating Systems hierarchical distribution</h2>",
@@ -57,13 +57,16 @@ server <- function(input, output, session) {
       "Using a <em>D3.js</em> library in R (D3PartitionR), we are able to create several hierarchical plots to visualize this data: a circle tree map, a sunburst map, a partition chart, a tree map, and a collapsible tree. ",
       "The user can hover and/or click through the data and explore the sub-partitions of the data within each country, city, and OS.</p>",
       
+      "<h2>Issues</h2>",
+      "<p>The application currently has an issue with navigating between the charts. If the navbar stops working please refresh the application/browser</p>",
+      
       "<h2>Discussion</h2>",
       "<p>Since part of this project (the map) was built in D3, and the other (the hierarchical distribution) in Shiny (albeit using a D3 wrapper library), it has proven difficult to successfully integrate both into a single Shiny app that works as expected. ",
       "However, we were able to do this by embedding the html (that calls the javascript code) within an iframe directly in Shiny. ",
       "It's not the most elegant solution (coding-wise), but looks and performs really well in the end.</p>",
       "<p>Another difficulty, on both parts of the project, was to integrate a time selector. ",
-      "In both cases, this would cause the entire visualization to stop responding and had to be dropped. ",
-      "However, the overall look of the project is very similar to what we had envisioned.</p>",
+      "In both cases, this would cause the entire visualization to stop responding, resulting in poor user experience and had to be dropped. ",
+      "However, the overall look of the project is very similar to what we had originally envisioned.</p>",
       "<p>Based on the prototype feedback, we added text descriptions for each plot as well as a landing page that explains the project a little bit. ",
       "The descriptions for the maps/charts are very similar since they refer to the same data.</p>"
     )
